@@ -46,11 +46,15 @@ import galleryImage2 from "@/assets/s2.jpeg";
 import galleryImage3 from "@/assets/s3.jpeg";
 import galleryImage4 from "@/assets/s4.jpeg";
 import galleryImage5 from "@/assets/s5.jpeg";
-import galleryImage6 from "@/assets/s6.jpeg";
 import galleryImage7 from "@/assets/s7.jpeg";
 import galleryImage8 from "@/assets/s8.jpeg";
 import galleryImage9 from "@/assets/s9.jpeg";
-import galleryImage10 from "@/assets/s10.jpeg";
+import galleryImage11 from "@/assets/s11.jpeg";
+import galleryImage12 from "@/assets/s12.jpeg";
+import galleryImage13 from "@/assets/s13.jpeg";
+import galleryImage14 from "@/assets/s14.jpeg";
+import galleryImage15 from "@/assets/s15.jpeg";
+import galleryImage16 from "@/assets/s16.jpeg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -121,16 +125,20 @@ const services = [
 const testimonials = [
   {
     quote: "Equipe muito organizada e cuidadosa. O atendimento foi excelente e o acabamento superou nossa expectativa.",
+    quote:
+      "Equipe muito organizada e cuidadosa. A automação ficou intuitiva e o acabamento superou nossa expectativa.",
     name: "Mariana Costa",
     role: "Projeto residencial",
   },
   {
-    quote: "Cumpriram o prazo e explicaram cada etapa. Nosso novo quadro ficou seguro, identificado e muito bem instalado.",
+    quote:
+      "Cumpriram o prazo e explicaram cada etapa. Nosso novo quadro ficou seguro, identificado e muito bem instalado.",
     name: "Ricardo Almeida",
     role: "Reforma comercial",
   },
   {
-    quote: "O projeto de iluminação transformou completamente o ambiente e ainda reduziu nosso consumo mensal.",
+    quote:
+      "O projeto de iluminação transformou completamente o ambiente e ainda reduziu nosso consumo mensal.",
     name: "Fernanda Rocha",
     role: "Projeto luminotécnico",
   },
@@ -142,16 +150,23 @@ const galleryImages = [
   galleryImage3,
   galleryImage4,
   galleryImage5,
-  galleryImage6,
+  galleryImage11,
   galleryImage7,
   galleryImage8,
   galleryImage9,
-  galleryImage10,
+  galleryImage12,
+  galleryImage13,
+  galleryImage14,
+  galleryImage15,
+  galleryImage16,
 ];
 
 const WHATSAPP_NUMBER = "5511974575827";
+const CONTACT_EMAIL = "contato@erbeletrica.com";
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+const emailLink = (subject: string, body: string) =>
+  `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
 function WhatsAppIcon({ className = "size-5" }: { className?: string }) {
   return (
@@ -171,13 +186,12 @@ function Index() {
     const service = form.get("service");
     const location = form.get("location");
     const name = form.get("name");
+    const phone = form.get("phone");
+    const details = form.get("details");
     setSent(true);
-    window.open(
-      whatsappLink(
-        `Olá, ERB Elétrica! Sou ${name}. Gostaria de um orçamento para ${service}, em ${location}.`,
-      ),
-      "_blank",
-      "noopener,noreferrer",
+    window.location.href = emailLink(
+      "Solicitação de orçamento - ERB Elétrica",
+      `Olá, ERB Elétrica!\n\nNome: ${name}\nTelefone / WhatsApp: ${phone}\nServiço: ${service}\nLocal: ${location}\nDetalhes do projeto: ${details || "Não informado"}`,
     );
   }
 
@@ -196,32 +210,75 @@ function Index() {
               ["Galeria", "#galeria"],
               ["Contato", "#contato"],
             ].map(([label, href]) => (
-              <a key={href} href={href} className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              <a
+                key={href}
+                href={href}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
                 {label}
               </a>
             ))}
           </nav>
-          <Button asChild className="hidden h-11 bg-accent px-5 font-bold text-accent-foreground shadow-accent hover:bg-accent/90 md:inline-flex">
-            <a href="#orcamento">Solicitar orçamento <ArrowRight /></a>
+          <Button
+            asChild
+            className="hidden h-11 bg-accent px-5 font-bold text-accent-foreground shadow-accent hover:bg-accent/90 md:inline-flex"
+          >
+            <a href="#orcamento">
+              Solicitar orçamento <ArrowRight />
+            </a>
           </Button>
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menu">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Abrir menu"
+          >
             {menuOpen ? <X /> : <Menu />}
           </Button>
         </div>
         {menuOpen && (
           <nav className="border-t border-border bg-background px-5 py-5 md:hidden">
-            {[["Serviços", "#servicos"], ["Diferenciais", "#diferenciais"], ["Projetos", "#projetos"], ["Galeria", "#galeria"], ["Contato", "#contato"]].map(([item, href]) => (
-              <a key={item} href={href} onClick={() => setMenuOpen(false)} className="block border-b border-border py-3 font-medium">
+            {[
+              ["Serviços", "#servicos"],
+              ["Diferenciais", "#diferenciais"],
+              ["Projetos", "#projetos"],
+              ["Galeria", "#galeria"],
+              ["Contato", "#contato"],
+            ].map(([item, href]) => (
+              <a
+                key={item}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className="block border-b border-border py-3 font-medium"
+              >
                 {item}
               </a>
             ))}
-            <Button asChild className="mt-5 h-12 w-full bg-whatsapp font-bold text-whatsapp-foreground hover:bg-whatsapp/90"><a href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar um orçamento.")} target="_blank" rel="noreferrer"><WhatsAppIcon /> Solicitar orçamento</a></Button>
+            <Button
+              asChild
+              className="mt-5 h-12 w-full bg-whatsapp font-bold text-whatsapp-foreground hover:bg-whatsapp/90"
+            >
+              <a
+                href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar um orçamento.")}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <WhatsAppIcon /> Solicitar orçamento
+              </a>
+            </Button>
           </nav>
         )}
       </header>
 
       <section id="inicio" className="relative min-h-[780px] pt-20 lg:min-h-[860px]">
-        <img src={heroImage} alt="Painéis elétricos industriais iluminados em uma fábrica moderna" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover object-center" />
+        <img
+          src={heroImage}
+          alt="Painéis elétricos industriais iluminados em uma fábrica moderna"
+          width={1920}
+          height={1088}
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto flex min-h-[700px] max-w-7xl items-center px-5 py-20 lg:min-h-[780px] lg:px-8">
           <div className="max-w-3xl">
@@ -235,11 +292,33 @@ function Index() {
               Das instalações elétricas aos laudos técnicos, entregamos segurança, eficiência e acabamento impecável.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="min-h-14 whitespace-normal bg-whatsapp px-6 py-3 text-center text-base font-bold text-whatsapp-foreground shadow-whatsapp hover:bg-whatsapp/90 sm:px-7">
-                <a href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar um orçamento.")} target="_blank" rel="noreferrer"><WhatsAppIcon /> Solicitar Orçamento no WhatsApp</a>
+              <Button
+                asChild
+                size="lg"
+                className="min-h-14 whitespace-normal bg-whatsapp px-6 py-3 text-center text-base font-bold text-whatsapp-foreground shadow-whatsapp hover:bg-whatsapp/90 sm:px-7"
+              >
+                <a
+                  href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar um orçamento.")}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <WhatsAppIcon /> Solicitar Orçamento no WhatsApp
+                </a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-13 border-hero-foreground/20 bg-hero-foreground/5 px-7 text-base text-hero-foreground backdrop-blur-md hover:bg-hero-foreground/10 hover:text-hero-foreground">
-                <a href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar um orçamento.")} target="_blank" rel="noreferrer"><MessageCircle /> Falar no WhatsApp</a>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-13 border-hero-foreground/20 bg-hero-foreground/5 px-7 text-base text-hero-foreground backdrop-blur-md hover:bg-hero-foreground/10 hover:text-hero-foreground"
+              >
+                <a
+                  href={emailLink(
+                    "Solicitação de orçamento - ERB Elétrica",
+                    "Olá, ERB Elétrica! Gostaria de solicitar um orçamento.",
+                  )}
+                >
+                  <Mail /> Enviar e-mail
+                </a>
               </Button>
             </div>
             <div className="mt-12 grid max-w-2xl gap-4 border-t border-hero-foreground/15 pt-7 sm:grid-cols-3">
@@ -249,15 +328,30 @@ function Index() {
                 [Award, "Confiança", "Serviço com garantia"],
               ].map(([Icon, title, text]) => {
                 const CredIcon = Icon as typeof ShieldCheck;
-                return <div key={String(title)} className="flex items-center gap-3"><CredIcon className="size-6 text-primary" /><div><p className="text-sm font-bold text-hero-foreground">{String(title)}</p><p className="text-xs text-hero-muted">{String(text)}</p></div></div>;
+                return (
+                  <div key={String(title)} className="flex items-center gap-3">
+                    <CredIcon className="size-6 text-primary" />
+                    <div>
+                      <p className="text-sm font-bold text-hero-foreground">{String(title)}</p>
+                      <p className="text-xs text-hero-muted">{String(text)}</p>
+                    </div>
+                  </div>
+                );
               })}
             </div>
           </div>
         </div>
         <div className="absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-1/2 lg:block">
           <div className="flex items-center gap-4 border border-border bg-card px-7 py-5 shadow-2xl">
-            <span className="flex size-11 items-center justify-center bg-primary/15 text-primary"><Gauge /></span>
-            <div><p className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">Resposta rápida</p><p className="font-display text-lg font-bold">Seu orçamento começa aqui</p></div>
+            <span className="flex size-11 items-center justify-center bg-primary/15 text-primary">
+              <Gauge />
+            </span>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                Resposta rápida
+              </p>
+              <p className="font-display text-lg font-bold">Seu orçamento começa aqui</p>
+            </div>
             <ChevronRight className="ml-5 text-accent" />
           </div>
         </div>
@@ -266,8 +360,14 @@ function Index() {
       <section id="servicos" className="py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div><p className="section-kicker">Serviços especializados</p><h2 className="section-title mt-4">Engenharia elétrica para cada necessidade.</h2></div>
-            <p className="max-w-xl text-base leading-7 text-muted-foreground lg:justify-self-end">Soluções completas, executadas com precisão técnica e atenção a cada detalhe — do diagnóstico à entrega final.</p>
+            <div>
+              <p className="section-kicker">Serviços especializados</p>
+              <h2 className="section-title mt-4">Engenharia elétrica para cada necessidade.</h2>
+            </div>
+            <p className="max-w-xl text-base leading-7 text-muted-foreground lg:justify-self-end">
+              Soluções completas, executadas com precisão técnica e atenção a cada detalhe — do
+              diagnóstico à entrega final.
+            </p>
           </div>
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
@@ -285,8 +385,29 @@ function Index() {
             ))}
           </div>
           <div className="mt-10 flex flex-col items-start justify-between gap-5 border border-primary/30 bg-primary/8 p-6 sm:flex-row sm:items-center lg:p-8">
-            <div><h3 className="font-display text-xl font-bold">Não encontrou exatamente o que precisa?</h3><p className="mt-2 text-sm text-muted-foreground">Fale com um especialista e receba uma orientação personalizada.</p></div>
-            <Button asChild size="lg" className="h-12 w-full shrink-0 bg-whatsapp font-bold text-whatsapp-foreground hover:bg-whatsapp/90 sm:w-auto"><a href={whatsappLink("Olá, ERB Elétrica! Preciso de orientação para um serviço elétrico.")} target="_blank" rel="noreferrer"><WhatsAppIcon /> Conversar agora</a></Button>
+            <div>
+              <h3 className="font-display text-xl font-bold">
+                Não encontrou exatamente o que precisa?
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Fale com um especialista e receba uma orientação personalizada.
+              </p>
+            </div>
+            <Button
+              asChild
+              size="lg"
+              className="h-12 w-full shrink-0 bg-whatsapp font-bold text-whatsapp-foreground hover:bg-whatsapp/90 sm:w-auto"
+            >
+              <a
+                href={whatsappLink(
+                  "Olá, ERB Elétrica! Preciso de orientação para um serviço elétrico.",
+                )}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <WhatsAppIcon /> Conversar agora
+              </a>
+            </Button>
           </div>
         </div>
       </section>
@@ -296,16 +417,29 @@ function Index() {
           <div>
             <p className="section-kicker">Por que escolher a ERB</p>
             <h2 className="section-title mt-4">Segurança que você vê. Qualidade que você sente.</h2>
-            <p className="mt-6 max-w-lg leading-7 text-muted-foreground">Não basta funcionar: cada instalação precisa ser segura, durável, organizada e pronta para o futuro.</p>
+            <p className="mt-6 max-w-lg leading-7 text-muted-foreground">
+              Não basta funcionar: cada instalação precisa ser segura, durável, organizada e pronta
+              para o futuro.
+            </p>
             <div className="mt-10 grid gap-px bg-border sm:grid-cols-2">
               {[
-                [ShieldCheck, "Segurança em primeiro lugar", "Procedimentos alinhados às normas técnicas."],
+                [
+                  ShieldCheck,
+                  "Segurança em primeiro lugar",
+                  "Procedimentos alinhados às normas técnicas.",
+                ],
                 [Clock3, "Pontualidade", "Planejamento claro e respeito ao seu tempo."],
                 [Award, "Equipe qualificada", "Conhecimento técnico aplicado em cada etapa."],
                 [Sparkles, "Acabamento impecável", "Organização e cuidado dentro do seu espaço."],
               ].map(([Icon, title, text]) => {
                 const FeatureIcon = Icon as typeof ShieldCheck;
-                return <div key={String(title)} className="bg-background p-6"><FeatureIcon className="mb-5 size-7 text-accent" /><h3 className="font-bold">{String(title)}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{String(text)}</p></div>;
+                return (
+                  <div key={String(title)} className="bg-background p-6">
+                    <FeatureIcon className="mb-5 size-7 text-accent" />
+                    <h3 className="font-bold">{String(title)}</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{String(text)}</p>
+                  </div>
+                );
               })}
             </div>
           </div>
@@ -325,9 +459,12 @@ function Index() {
           <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
             <div>
               <p className="section-kicker">Galeria de fotos</p>
-              <h2 className="section-title mt-4">Projetos e detalhes que dão vida a cada ambiente.</h2>
+              <h2 className="section-title mt-4">
+                Projetos e detalhes que dão vida a cada ambiente.
+              </h2>
               <p className="mt-6 max-w-md text-sm leading-6 text-muted-foreground">
-                Confira alguns registros dos trabalhos da ERB Elétrica e inspire-se para o seu próximo projeto.
+                Confira alguns registros dos trabalhos da ERB Elétrica e inspire-se para o seu
+                próximo projeto.
               </p>
             </div>
             <Carousel
@@ -366,11 +503,26 @@ function Index() {
         <div className="mx-auto grid max-w-7xl overflow-hidden border border-border bg-card lg:grid-cols-[0.8fr_1.2fr]">
           <div className="relative overflow-hidden bg-primary p-8 text-primary-foreground lg:p-12">
             <Zap className="absolute -bottom-16 -right-12 size-72 opacity-10" />
-            <p className="text-xs font-bold uppercase tracking-[0.18em] opacity-70">Simulação rápida</p>
-            <h2 className="mt-4 font-display text-4xl font-bold">Conte seu projeto. Nós cuidamos da energia.</h2>
-            <p className="mt-5 leading-7 opacity-80">Preencha os dados ao lado e envie sua solicitação diretamente para nosso atendimento.</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] opacity-70">
+              Simulação rápida
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-bold">
+              Conte seu projeto. Nós cuidamos da energia.
+            </h2>
+            <p className="mt-5 leading-7 opacity-80">
+              Preencha os dados ao lado e envie sua solicitação diretamente para nosso atendimento.
+            </p>
             <ul className="mt-10 space-y-4 text-sm font-medium">
-              {["Retorno ágil", "Avaliação personalizada", "Orçamento sem compromisso"].map((item) => <li key={item} className="flex items-center gap-3"><span className="flex size-6 items-center justify-center bg-primary-foreground/15"><Check className="size-4" /></span>{item}</li>)}
+              {["Retorno ágil", "Avaliação personalizada", "Orçamento sem compromisso"].map(
+                (item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="flex size-6 items-center justify-center bg-primary-foreground/15">
+                      <Check className="size-4" />
+                    </span>
+                    {item}
+                  </li>
+                ),
+              )}
             </ul>
             <div className="mt-10 space-y-3 text-sm">
               <a href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar um orçamento.")} target="_blank" rel="noreferrer" className="flex items-center gap-3 font-semibold transition-opacity hover:opacity-80"><MessageCircle className="size-4" /> (11) 97457-5827</a>
@@ -384,8 +536,18 @@ function Index() {
             <label className="field-label lg:col-span-2">Local do serviço<input name="location" required className="field-input" placeholder="Cidade e bairro" /></label>
             <label className="field-label lg:col-span-2">Conte um pouco sobre o projeto<textarea name="details" className="field-input min-h-28 resize-y" placeholder="Ex.: reforma completa de um apartamento..." /></label>
             <div className="flex flex-col items-start gap-4 lg:col-span-2 sm:flex-row sm:items-center">
-              <Button type="submit" size="lg" className="h-12 w-full bg-whatsapp px-7 font-bold text-whatsapp-foreground hover:bg-whatsapp/90 sm:w-auto"><WhatsAppIcon /> Enviar pelo WhatsApp</Button>
-              {sent && <p className="flex items-center gap-2 text-sm font-medium text-success"><CheckCircle2 className="size-4" /> Solicitação preparada com sucesso.</p>}
+              <Button
+                type="submit"
+                size="lg"
+                className="h-12 w-full bg-accent px-7 font-bold text-accent-foreground hover:bg-accent/90 sm:w-auto"
+              >
+                <Mail /> Enviar por e-mail
+              </Button>
+              {sent && (
+                <p className="flex items-center gap-2 text-sm font-medium text-success">
+                  <CheckCircle2 className="size-4" /> E-mail preparado para envio.
+                </p>
+              )}
             </div>
           </form>
         </div>
@@ -393,17 +555,54 @@ function Index() {
 
       <section className="border-y border-border bg-secondary/35 py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="max-w-2xl"><p className="section-kicker">Clientes satisfeitos</p><h2 className="section-title mt-4">Confiança construída em cada entrega.</h2></div>
+          <div className="max-w-2xl">
+            <p className="section-kicker">Clientes satisfeitos</p>
+            <h2 className="section-title mt-4">Confiança construída em cada entrega.</h2>
+          </div>
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
-            {testimonials.map((item) => <figure key={item.name} className="border border-border bg-card p-7"><div className="mb-6 flex gap-1 text-accent">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-current" />)}</div><blockquote className="text-base leading-7">“{item.quote}”</blockquote><figcaption className="mt-8 border-t border-border pt-5"><p className="font-bold">{item.name}</p><p className="text-sm text-muted-foreground">{item.role}</p></figcaption></figure>)}
+            {testimonials.map((item) => (
+              <figure key={item.name} className="border border-border bg-card p-7">
+                <div className="mb-6 flex gap-1 text-accent">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="size-4 fill-current" />
+                  ))}
+                </div>
+                <blockquote className="text-base leading-7">“{item.quote}”</blockquote>
+                <figcaption className="mt-8 border-t border-border pt-5">
+                  <p className="font-bold">{item.name}</p>
+                  <p className="text-sm text-muted-foreground">{item.role}</p>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="border-t border-border bg-primary py-10 text-primary-foreground">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-5 sm:flex-row sm:items-center lg:px-8">
-          <div><p className="text-xs font-bold uppercase tracking-[0.16em] opacity-70">Atendimento direto</p><h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">Pronto para tirar seu projeto do papel?</h2></div>
-          <Button asChild size="lg" className="min-h-13 w-full shrink-0 whitespace-normal bg-whatsapp px-6 py-3 font-bold text-whatsapp-foreground shadow-whatsapp hover:bg-whatsapp/90 sm:w-auto"><a href={whatsappLink("Olá, ERB Elétrica! Quero solicitar um orçamento para o meu projeto.")} target="_blank" rel="noreferrer"><WhatsAppIcon /> Solicitar orçamento no WhatsApp</a></Button>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] opacity-70">
+              Atendimento direto
+            </p>
+            <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">
+              Pronto para tirar seu projeto do papel?
+            </h2>
+          </div>
+          <Button
+            asChild
+            size="lg"
+            className="min-h-13 w-full shrink-0 whitespace-normal bg-whatsapp px-6 py-3 font-bold text-whatsapp-foreground shadow-whatsapp hover:bg-whatsapp/90 sm:w-auto"
+          >
+            <a
+              href={whatsappLink(
+                "Olá, ERB Elétrica! Quero solicitar um orçamento para o meu projeto.",
+              )}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <WhatsAppIcon /> Solicitar orçamento no WhatsApp
+            </a>
+          </Button>
         </div>
       </section>
 
@@ -413,10 +612,17 @@ function Index() {
           <div><h3 className="footer-title">Atendimento</h3><div className="mt-5 space-y-4 text-sm text-footer-muted"><a href={whatsappLink("Olá, ERB Elétrica! Gostaria de falar com a equipe.")} target="_blank" rel="noreferrer" className="footer-link"><MessageCircle /> WhatsApp (11) 97457-5827</a><a href="tel:+5511974575827" className="footer-link"><Phone /> (11) 97457-5827</a><a href="mailto:contato@erbeletrica.com" className="footer-link"><Mail /> contato@erbeletrica.com</a></div></div>
           <div><h3 className="footer-title">Informações</h3><div className="mt-5 space-y-4 text-sm text-footer-muted"><p className="footer-link"><Clock3 /> Atendimento sob consulta</p><p className="footer-link"><MapPin /> Atendimento regional</p><p className="footer-link"><Building2 /> Industrial, comercial e predial</p></div></div>
         </div>
-        <div className="mx-auto mt-14 flex max-w-7xl flex-col gap-3 border-t border-footer-border px-5 pt-7 text-xs text-footer-muted sm:flex-row sm:justify-between lg:px-8"><p>© 2026 ERB Elétrica. Todos os direitos reservados.</p><p>Energia • Tecnologia • Segurança</p></div>
       </footer>
 
-      <a href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar uma cotação rápida.")} target="_blank" rel="noreferrer" aria-label="Falar com a ERB Elétrica pelo WhatsApp" className="whatsapp-float fixed bottom-4 right-4 z-40 flex size-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-whatsapp transition-transform hover:scale-105 sm:bottom-5 sm:right-5"><WhatsAppIcon className="size-7" /></a>
+      <a
+        href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar uma cotação rápida.")}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Falar com a ERB Elétrica pelo WhatsApp"
+        className="whatsapp-float fixed bottom-4 right-4 z-40 flex size-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-whatsapp transition-transform hover:scale-105 sm:bottom-5 sm:right-5"
+      >
+        <WhatsAppIcon className="size-7" />
+      </a>
     </main>
   );
 }
