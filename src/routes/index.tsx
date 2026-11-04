@@ -10,7 +10,6 @@ import {
   ChevronRight,
   Clock3,
   Gauge,
-  HousePlug,
   LampCeiling,
   Mail,
   MapPin,
@@ -37,6 +36,11 @@ import {
 import heroImage from "@/assets/erb-hero.jpg";
 import livingImage from "@/assets/erb-living.jpg";
 import logoAsset from "@/assets/erb-logo-trimmed.png";
+import serviceInstallationImage from "@/assets/service-installation.png";
+import serviceLightingImage from "@/assets/service-lighting.png";
+import servicePanelsImage from "@/assets/service-panels.png";
+import serviceSpdaImage from "@/assets/service-spda.png";
+import serviceThermographyImage from "@/assets/service-thermography.png";
 import galleryImage1 from "@/assets/s1.jpeg";
 import galleryImage2 from "@/assets/s2.jpeg";
 import galleryImage3 from "@/assets/s3.jpeg";
@@ -55,11 +59,11 @@ import galleryImage16 from "@/assets/s16.jpeg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ERB Elétrica | Soluções Elétricas e Automação" },
+      { title: "ERB Elétrica | Soluções Elétricas" },
       {
         name: "description",
         content:
-          "Instalações elétricas, automação residencial e predial, iluminação LED e laudos técnicos com segurança e acabamento impecável.",
+          "Instalações elétricas, iluminação LED, laudos técnicos de SPDA e análises termográficas e de energia.",
       },
       { property: "og:title", content: "ERB Elétrica | Energia para o seu próximo projeto" },
       {
@@ -78,42 +82,49 @@ const services = [
     icon: Bolt,
     number: "01",
     title: "Instalações e Reformas Elétricas",
+    image: serviceInstallationImage,
     text: "Execução completa para residências, condomínios e estabelecimentos comerciais.",
   },
   {
-    icon: HousePlug,
+    icon: ShieldCheck,
     number: "02",
-    title: "Automação Residencial & Smart Home",
-    text: "Controle inteligente de iluminação, tomadas e ambientes integrados.",
+    title: "Laudo Técnico de SPDA",
+    image: serviceSpdaImage,
+    text: "Avaliação técnica do sistema de proteção contra descargas atmosféricas.",
   },
   {
     icon: LampCeiling,
     number: "03",
     title: "Iluminação em LED & Luminotécnica",
+    image: serviceLightingImage,
     text: "Projetos de alto padrão com fitas de LED, perfis e iluminação indireta.",
   },
   {
     icon: PanelTop,
     number: "04",
-    title: "Montagem e Manutenção de Quadros (QDC)",
+    title: "Montagem e Manutenção de Quadros",
+    image: servicePanelsImage,
     text: "Adequação, distribuição de circuitos e proteção contra sobrecargas com DPS e DR.",
   },
   {
-    icon: Wrench,
+    icon: Gauge,
     number: "05",
-    title: "Manutenção Preventiva e Corretiva",
-    text: "Diagnóstico de falhas, eliminação de quedas de energia e curto-circuitos.",
+    title: "Análises Termográfica e de Energia",
+    image: serviceThermographyImage,
+    text: "Inspeção térmica para identificar aquecimentos e análise do fator de potência para orientar sua correção.",
   },
   {
-    icon: ShieldCheck,
+    icon: Wrench,
     number: "06",
-    title: "Laudos Técnicos e Normas NR-10",
-    text: "Vistorias de conformidade e segurança para imóveis e empresas.",
+    title: "Manutenção Preventiva e Corretiva",
+    image: serviceInstallationImage,
+    text: "Diagnóstico de falhas, eliminação de quedas de energia e curto-circuitos.",
   },
 ];
 
 const testimonials = [
   {
+    quote: "Equipe muito organizada e cuidadosa. O atendimento foi excelente e o acabamento superou nossa expectativa.",
     quote:
       "Equipe muito organizada e cuidadosa. A automação ficou intuitiva e o acabamento superou nossa expectativa.",
     name: "Mariana Costa",
@@ -275,12 +286,10 @@ function Index() {
               <Zap className="size-4 fill-current" /> Energia para o seu próximo projeto
             </div>
             <h1 className="max-w-3xl font-display text-[2.6rem] font-bold leading-[1.06] text-hero-foreground sm:text-6xl lg:text-7xl">
-              Soluções elétricas <span className="text-primary">modernas</span>, seguras e
-              inteligentes.
+              Soluções elétricas <span className="text-primary">modernas</span>, seguras e eficientes.
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-8 text-hero-muted">
-              Da instalação à automação completa, entregamos tecnologia, segurança e acabamento
-              impecável para transformar seus ambientes.
+              Das instalações elétricas aos laudos técnicos, entregamos segurança, eficiência e acabamento impecável.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Button
@@ -314,7 +323,7 @@ function Index() {
             </div>
             <div className="mt-12 grid max-w-2xl gap-4 border-t border-hero-foreground/15 pt-7 sm:grid-cols-3">
               {[
-                [ShieldCheck, "Certificação", "Profissionais NR-10"],
+                [Gauge, "Análise", "Diagnóstico técnico"],
                 [Clock3, "Agilidade", "Atendimento rápido"],
                 [Award, "Confiança", "Serviço com garantia"],
               ].map(([Icon, title, text]) => {
@@ -360,30 +369,18 @@ function Index() {
               diagnóstico à entrega final.
             </p>
           </div>
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-6">
-            {services.map((service, index) => (
-              <article
-                key={service.title}
-                className="group relative flex min-h-80 flex-col overflow-hidden border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-electric sm:p-7 lg:col-span-2"
-              >
-                <span className="absolute right-5 top-4 font-display text-5xl font-bold text-muted/70">
-                  {service.number}
-                </span>
-                <div className="mb-8 flex size-12 items-center justify-center bg-primary/12 text-primary">
-                  <service.icon />
+          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <article key={service.title} className="group relative flex min-h-80 flex-col overflow-hidden border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-electric">
+                <div className="relative isolate overflow-hidden px-6 pb-5 pt-6 sm:px-7 sm:pt-7">
+                  <img src={service.image} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 -z-20 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-t from-background/95 via-background/60 to-background/35" />
+                  <span className="absolute right-5 top-4 font-display text-5xl font-bold text-white/20">{service.number}</span>
+                  <div className="mb-8 flex size-12 items-center justify-center bg-background/70 text-primary backdrop-blur-sm"><service.icon /></div>
+                  <h3 className="max-w-xs font-display text-xl font-bold text-white">{service.title}</h3>
                 </div>
-                <h3 className="max-w-xs font-display text-xl font-bold">{service.title}</h3>
-                <p className="mt-4 text-sm leading-6 text-muted-foreground">{service.text}</p>
-                <a
-                  href={whatsappLink(
-                    `Olá, ERB Elétrica! Gostaria de cotar o serviço: ${service.title}.`,
-                  )}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-auto flex items-center gap-2 pt-7 text-sm font-bold text-primary transition-colors hover:text-accent"
-                >
-                  Cotar este serviço <ChevronRight className="size-4" />
-                </a>
+                <p className="px-6 pt-5 text-sm leading-6 text-muted-foreground sm:px-7">{service.text}</p>
+                <a href={whatsappLink(`Olá, ERB Elétrica! Gostaria de cotar o serviço: ${service.title}.`)} target="_blank" rel="noreferrer" className="mt-auto flex items-center gap-2 px-6 pb-6 pt-7 text-sm font-bold text-primary transition-colors hover:text-accent sm:px-7 sm:pb-7">Cotar este serviço <ChevronRight className="size-4" /></a>
               </article>
             ))}
           </div>
@@ -446,26 +443,12 @@ function Index() {
               })}
             </div>
           </div>
-          <div
-            id="projetos"
-            className="relative min-h-[520px] overflow-hidden border border-border"
-          >
-            <img
-              src={livingImage}
-              alt="Detalhes de iluminação e automação em ambiente residencial"
-              loading="lazy"
-              width={1920}
-              height={1080}
-              className="h-full w-full object-cover object-right"
-            />
+          <div id="projetos" className="relative min-h-[520px] overflow-hidden border border-border">
+            <img src={livingImage} alt="Detalhes de iluminação em ambiente residencial" loading="lazy" width={1920} height={1080} className="h-full w-full object-cover object-right" />
             <div className="absolute inset-0 bg-project-overlay" />
             <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10">
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">
-                Ambientes conectados
-              </p>
-              <h3 className="mt-3 max-w-md font-display text-3xl font-bold text-hero-foreground">
-                Iluminação inteligente que acompanha cada momento.
-              </h3>
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Iluminação em destaque</p>
+              <h3 className="mt-3 max-w-md font-display text-3xl font-bold text-hero-foreground">Projetos de iluminação que valorizam cada ambiente.</h3>
             </div>
           </div>
         </div>
@@ -542,65 +525,16 @@ function Index() {
               )}
             </ul>
             <div className="mt-10 space-y-3 text-sm">
-              <a
-                href={emailLink(
-                  "Solicitação de orçamento - ERB Elétrica",
-                  "Olá, ERB Elétrica! Gostaria de solicitar um orçamento.",
-                )}
-                className="flex items-center gap-3 font-semibold transition-opacity hover:opacity-80"
-              >
-                <Mail className="size-4" /> Enviar e-mail
-              </a>
+              <a href={whatsappLink("Olá, ERB Elétrica! Gostaria de solicitar um orçamento.")} target="_blank" rel="noreferrer" className="flex items-center gap-3 font-semibold transition-opacity hover:opacity-80"><MessageCircle className="size-4" /> (11) 97457-5827</a>
+              <a href="mailto:contato@erbeletrica.com" className="flex items-center gap-3 font-semibold transition-opacity hover:opacity-80"><Mail className="size-4" /> contato@erbeletrica.com</a>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-5 p-8 lg:grid-cols-2 lg:p-12">
-            <label className="field-label lg:col-span-2">
-              Tipo de serviço
-              <select name="service" required className="field-input">
-                <option value="">Selecione uma opção</option>
-                <option>Instalação ou reforma elétrica</option>
-                <option>Automação residencial</option>
-                <option>Projeto de iluminação</option>
-                <option>Quadro de distribuição</option>
-                <option>Laudo ou adequação NR-10</option>
-              </select>
-            </label>
-            <label className="field-label">
-              Seu nome
-              <input
-                name="name"
-                required
-                className="field-input"
-                placeholder="Como podemos chamar você?"
-              />
-            </label>
-            <label className="field-label">
-              Telefone / WhatsApp
-              <input
-                name="phone"
-                required
-                inputMode="tel"
-                className="field-input"
-                placeholder="(00) 00000-0000"
-              />
-            </label>
-            <label className="field-label lg:col-span-2">
-              Local do serviço
-              <input
-                name="location"
-                required
-                className="field-input"
-                placeholder="Cidade e bairro"
-              />
-            </label>
-            <label className="field-label lg:col-span-2">
-              Conte um pouco sobre o projeto
-              <textarea
-                name="details"
-                className="field-input min-h-28 resize-y"
-                placeholder="Ex.: reforma completa de um apartamento..."
-              />
-            </label>
+            <label className="field-label lg:col-span-2">Tipo de serviço<select name="service" required className="field-input"><option value="">Selecione uma opção</option><option>Instalação ou reforma elétrica</option><option>Projeto de iluminação</option><option>Quadro de distribuição</option><option>Laudo técnico de SPDA</option><option>Análises termográfica e de energia/fator de potência</option><option>Manutenção preventiva ou corretiva</option></select></label>
+            <label className="field-label">Seu nome<input name="name" required className="field-input" placeholder="Como podemos chamar você?" /></label>
+            <label className="field-label">Telefone / WhatsApp<input name="phone" required inputMode="tel" className="field-input" placeholder="(00) 00000-0000" /></label>
+            <label className="field-label lg:col-span-2">Local do serviço<input name="location" required className="field-input" placeholder="Cidade e bairro" /></label>
+            <label className="field-label lg:col-span-2">Conte um pouco sobre o projeto<textarea name="details" className="field-input min-h-28 resize-y" placeholder="Ex.: reforma completa de um apartamento..." /></label>
             <div className="flex flex-col items-start gap-4 lg:col-span-2 sm:flex-row sm:items-center">
               <Button
                 type="submit"
@@ -674,48 +608,9 @@ function Index() {
 
       <footer id="contato" className="bg-footer py-16 text-footer-foreground">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
-          <div>
-            <img src={logoAsset} alt="ERB Elétrica" className="h-16 w-auto" />
-            <p className="mt-6 max-w-sm text-sm leading-6 text-footer-muted">
-              Soluções elétricas, automação e iluminação desenvolvidas para tornar seus espaços mais
-              seguros, eficientes e inteligentes.
-            </p>
-          </div>
-          <div>
-            <h3 className="footer-title">Atendimento</h3>
-            <div className="mt-5 space-y-4 text-sm text-footer-muted">
-              <a
-                href={emailLink(
-                  "Contato - ERB Elétrica",
-                  "Olá, ERB Elétrica! Gostaria de falar com a equipe.",
-                )}
-                className="footer-link"
-              >
-                <Mail /> Enviar e-mail
-              </a>
-              <a href="tel:+5511974575827" className="footer-link">
-                <Phone /> (11) 97457-5827
-              </a>
-            </div>
-          </div>
-          <div>
-            <h3 className="footer-title">Informações</h3>
-            <div className="mt-5 space-y-4 text-sm text-footer-muted">
-              <p className="footer-link">
-                <Clock3 /> Atendimento sob consulta
-              </p>
-              <p className="footer-link">
-                <MapPin /> Atendimento regional
-              </p>
-              <p className="footer-link">
-                <Building2 /> Industrial, comercial e predial
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="mx-auto mt-14 flex max-w-7xl flex-col gap-3 border-t border-footer-border px-5 pt-7 text-xs text-footer-muted sm:flex-row sm:justify-between lg:px-8">
-          <p>© 2026 ERB Elétrica. Todos os direitos reservados.</p>
-          <p>Energia • Tecnologia • Segurança</p>
+          <div><img src={logoAsset} alt="ERB Elétrica" className="h-16 w-auto" /><p className="mt-6 max-w-sm text-sm leading-6 text-footer-muted">Soluções elétricas, iluminação e análises técnicas para tornar seus espaços mais seguros e eficientes.</p></div>
+          <div><h3 className="footer-title">Atendimento</h3><div className="mt-5 space-y-4 text-sm text-footer-muted"><a href={whatsappLink("Olá, ERB Elétrica! Gostaria de falar com a equipe.")} target="_blank" rel="noreferrer" className="footer-link"><MessageCircle /> WhatsApp (11) 97457-5827</a><a href="tel:+5511974575827" className="footer-link"><Phone /> (11) 97457-5827</a><a href="mailto:contato@erbeletrica.com" className="footer-link"><Mail /> contato@erbeletrica.com</a></div></div>
+          <div><h3 className="footer-title">Informações</h3><div className="mt-5 space-y-4 text-sm text-footer-muted"><p className="footer-link"><Clock3 /> Atendimento sob consulta</p><p className="footer-link"><MapPin /> Atendimento regional</p><p className="footer-link"><Building2 /> Industrial, comercial e predial</p></div></div>
         </div>
       </footer>
 
