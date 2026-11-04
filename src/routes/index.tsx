@@ -41,6 +41,7 @@ import serviceLightingImage from "@/assets/service-lighting.png";
 import servicePanelsImage from "@/assets/service-panels.png";
 import serviceSpdaImage from "@/assets/service-spda.png";
 import serviceThermographyImage from "@/assets/service-thermography.png";
+import serviceMaintenanceImage from "@/assets/service-maintenance.png";
 import galleryImage1 from "@/assets/s1.jpeg";
 import galleryImage2 from "@/assets/s2.jpeg";
 import galleryImage3 from "@/assets/s3.jpeg";
@@ -117,7 +118,7 @@ const services = [
     icon: Wrench,
     number: "06",
     title: "Manutenção Preventiva e Corretiva",
-    image: serviceInstallationImage,
+    image: serviceMaintenanceImage,
     text: "Diagnóstico de falhas, eliminação de quedas de energia e curto-circuitos.",
   },
 ];
