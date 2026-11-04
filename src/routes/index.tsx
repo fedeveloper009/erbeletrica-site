@@ -63,7 +63,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Instalações elétricas, iluminação LED, laudos técnicos de SPDA e análises termográficas e de energia.",
+          "Instalações elétricas, iluminação LED, laudo técnico de SPDA e análises termográficas e de energia para correção do fator de potência.",
       },
       { property: "og:title", content: "ERB Elétrica | Energia para o seu próximo projeto" },
       {
